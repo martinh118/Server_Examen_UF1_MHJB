@@ -64,7 +64,7 @@ function checkUserInput($email, $password)
     }
 
     //$md5Hash = md5($password);
-    $hashSha512 = hash('sha512', $password);
+    $hashSha512 = substr(hash('sha512', $password), 0 , 32);
     $md5HashDB = getUserHash($email);
 
     if ($hashSha512 != $md5HashDB) {
