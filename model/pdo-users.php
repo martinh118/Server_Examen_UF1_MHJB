@@ -3,6 +3,21 @@
 
 require_once 'db-connection.php';
 
+function eliminarUser($id){
+    try {
+        $connexio = getConnection();
+
+        $statement = $connexio->prepare('DELETE FROM users WHERE id = :id');
+
+        $statement->bindValue(':id', $id);
+
+        $statement->execute();
+
+    } catch (PDOException $e) {
+        die("No es pot establir connexió amb la base de dades");
+    }
+}
+
 /**
  * Selecciona tots els usuaris de la base de dades.
  * @return users: Totes les dades dels usuaris.

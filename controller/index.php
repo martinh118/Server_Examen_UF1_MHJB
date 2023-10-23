@@ -3,13 +3,29 @@
 require_once '../model/pdo-articles.php';
 require_once '../controller/session.php';
 
-$postsPerPage = 10;
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if(empty($_POST['postsPerPage'])){
+        $post = 10;
+    }else $post = $_POST['postsPerPage'];
 
-//sustitui linea para tratar cookie.
+    if(empty($_POST['orderBy'])){
+        $order = "Date (desc)";
+    }else  $order = $_POST['orderBy'];
+   
+    header("index.php?post=" . urlencode($post) . "&order=". urlencode($order));
+
+
+}
+
+//sustituir linea para tratar cookie.
 $orderBy = 'date-desc';
 
 $searchTerm = "";
 if (isset($_GET['search'])) $searchTerm = $_GET['search'];
+
+if(isset($_GET['post'])){
+    $postsPerPage = $_GET['post'];
+}else $postsPerPage = 10;
 
 session_start();
 $userId = getSessionUserId();
@@ -28,6 +44,8 @@ if ($nArticles > 0 && ($currentPage > $nPages || $currentPage < 1)) {
 }
 
 $ndxArticle = $postsPerPage * ($currentPage - 1);
+
+
 
 $articles = getPosts($userId, $ndxArticle, $postsPerPage, $orderBy, $searchTerm); 
 
@@ -50,3 +68,5 @@ $firstPageLink = $firstPage ? "#" : $searchQuery . "page=1";
 $lastPageLink = $lastPage ? "#" : $searchQuery . "page=$nPages";
 
 require_once '../view/index.view.php';
+
+

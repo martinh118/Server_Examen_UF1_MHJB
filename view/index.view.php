@@ -133,9 +133,14 @@
 					<form action="index.php" method="post" class="text-center">
 						<label for="postsPerPage">Posts per page: </label>
 						<select class="form-select " name="postsPerPage" onchange="this.form.submit()">
-							<option <?php echo $postsPerPage == 10 ? 'selected' : '' ?> value="10">10</option>
-							<option <?php echo $postsPerPage == 15 ? 'selected' : '' ?> value="15">15</option>
-							<option <?php echo $postsPerPage == 20 ? 'selected' : '' ?> value="20">20</option>
+						<!-- <option <?php //echo $postsPerPage == 10 ? 'selected' : '' ?> value="10">10</option>
+							<option <?php //echo $postsPerPage == 15 ? 'selected' : '' ?> value="15">15</option>
+							<option <?php //echo $postsPerPage == 20 ? 'selected' : '' ?> value="20">20</option> -->
+
+							<option name="posts" value="10">10</option>
+							<option name="posts" value="15">15</option>
+							<option name="posts" value="20">20</option>
+							
 						</select>
 					</form>
 				</div>
@@ -144,10 +149,16 @@
 					<form action="index.php" method="post" class="text-center">
 						<label for="orderBy">Order by: </label>
 						<select class="form-select " name="orderBy" onchange="this.form.submit()">
-							<option <?php echo $orderBy == 'date-desc' ? 'selected' : '' ?> value="date-desc">Date (desc)</option>
-							<option <?php echo $orderBy == 'date-asc' ? 'selected' : '' ?> value="date-asc">Date (asc)</option>
-							<option <?php echo $orderBy == 'title-asc' ? 'selected' : '' ?> value="title-asc">Alphabetically (asc)</option>
-							<option <?php echo $orderBy == 'title-desc' ? 'selected' : '' ?> value="title-desc">Alphabetically (desc)</option>
+							<!--<option <?php //echo $orderBy == 'date-desc' ? 'selected' : '' ?> value="date-desc">Date (desc)</option>
+							<option <?php //echo $orderBy == 'date-asc' ? 'selected' : '' ?> value="date-asc">Date (asc)</option>
+							<option <?php //echo $orderBy == 'title-asc' ? 'selected' : '' ?> value="title-asc">Alphabetically (asc)</option>
+							<option <?php //echo $orderBy == 'title-desc' ? 'selected' : '' ?> value="title-desc">Alphabetically (desc)</option> -->
+
+							<option name="order" value="date-desc">Date (desc)</option>
+							<option name="order" value="date-asc">Date (asc)</option>
+							<option name="order" value="title-asc">Alphabetically (asc)</option>
+							<option name="order" value="title-desc">Alphabetically (desc)</option>
+							
 						</select>
 					</form>
 				</div>
