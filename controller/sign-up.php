@@ -46,8 +46,9 @@ function signup($email, $nickname, $password1, $password2) {
 
     if (!empty($errors)) return;
 
-    $md5Hash = md5($password1);
-    insertNewUser($email, $nickname, $md5Hash);
+    //$md5Hash = md5($password1);
+    $hashSha512 = hash('sha512', $password1);
+    insertNewUser($email, $nickname, $hashSha512);
     startSession($email, true);
     redirectHome();
 }

@@ -2,10 +2,13 @@
 
 require_once '../model/pdo-articles.php';
 require_once '../controller/input-common.php';
-require_once '../controller/images.php';
+//require_once '../controller/images.php';
 require_once '../controller/session.php';
 
 $errors = [];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+}
+
 
 session_start();
 $userId = getSessionUserId();
@@ -16,9 +19,9 @@ if ($userId == 0) {
 }
 
 if (isset($_GET['id'])) {
-    $articleId = $_GET['id']; 
-    $_SESSION["articleId"] = $articleId; 
-    $articleOwnerID = getPostOwnerID($articleId); 
+    $articleId = $_GET['id'];
+    $_SESSION["articleId"] = $articleId;
+    $articleOwnerID = getPostOwnerID($articleId);
     if ($articleOwnerID != $userId) {
         header('Location: index.php');
         return;
@@ -30,17 +33,16 @@ if (isset($_GET['id'])) {
     $link = $article['link'];
     $ytLink = $article['youtube_link'];
     $synopsis = $article['synopsis'];
-
-} else if (isset($_POST['guardar'])) {   
+} else if (isset($_POST['guardar'])) {
     $imagePath = "";
     $title = sanitizeString($_POST['title']);
     $director = sanitizeString($_POST['director']);
     $link = sanitizeString($_POST['link']);
     $ytLink = sanitizeString($_POST['youtube']);
-    $synopsis = sanitizeString($_POST['synopsis']);    
-    
+    $synopsis = sanitizeString($_POST['synopsis']);
+
     checkUserInput($title, $director, $link, $ytLink, $synopsis);
-    
+
     // Si no tenim errors, procedim a actualitzar l'article
     if (empty($errors)) {
         if (isset($_SESSION["articleId"])) {
@@ -50,12 +52,10 @@ if (isset($_GET['id'])) {
             $articleId = createPost($userId, $title, $director, $link, $ytLink, $synopsis);
             $_SESSION["articleId"] = $articleId;
         }
-
     } else {
         $articleId = $_SESSION["articleId"];
     }
     $article = getPost($articleId);
-
 } else unset($_SESSION['articleId']);
 
 require_once '../view/edit.view.php';
@@ -81,7 +81,7 @@ function checkUserInput($title, $director, $link, $ytLink, $synopsis)
         $errors['title'] = "Please, type the title.";
     else if (strlen($title) > 120)
         $errors['title'] = "Title can't be longer than 184 characters.";
-        
+
     // Comprovar director
     if (empty($director))
         $errors['director'] = "Please, type the director.";
