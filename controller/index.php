@@ -5,6 +5,7 @@ require_once '../controller/session.php';
 
 $postsPerPage = 10;
 
+//sustitui linea para tratar cookie.
 $orderBy = 'date-desc';
 
 $searchTerm = "";

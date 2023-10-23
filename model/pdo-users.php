@@ -3,6 +3,27 @@
 
 require_once 'db-connection.php';
 
+/**
+ * Selecciona tots els usuaris de la base de dades.
+ * @return users: Totes les dades dels usuaris.
+ */
+function getAllUsers(){
+
+    try {
+        $connexio = getConnection();
+
+        $statement = $connexio->prepare('SELECT * FROM users ');
+
+        $statement->execute();
+
+        $users = $statement->fetchAll();
+
+        return $users;
+    } catch (PDOException $e) {
+        die("No es pot establir connexió amb la base de dades");
+    }
+
+}
 
 /**
  * Consulta l'existència d'un usuari mitjançant un email
